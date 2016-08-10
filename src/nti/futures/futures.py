@@ -14,13 +14,13 @@ logger = __import__('logging').getLogger(__name__)
 import functools
 import multiprocessing
 
-import concurrent.futures
-
 import platform
 _is_pypy = platform.python_implementation() == 'PyPy'
 
 import weakref
 _executors_by_base = weakref.WeakKeyDictionary()
+
+import concurrent.futures
 
 def ConcurrentExecutor(max_workers=None):
 	"""

@@ -46,7 +46,8 @@ setup(
 	tests_require=TESTS_REQUIRE,
 	install_requires=[
 		'setuptools',
-		'futures'
+		'futures',
+		'zope.exceptions'
 	],
 	extras_require={
 		'test': TESTS_REQUIRE,
