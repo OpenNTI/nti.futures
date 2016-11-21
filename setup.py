@@ -1,11 +1,7 @@
 import codecs
 from setuptools import setup, find_packages
 
-VERSION = '0.0.0'
-
 entry_points = {
-	'console_scripts': [
-	],
 }
 
 TESTS_REQUIRE = [
@@ -19,9 +15,13 @@ TESTS_REQUIRE = [
 	'nti.testing'
 ]
 
+def _read(fname):
+	with codecs.open(fname, encoding='utf-8') as f:
+		return f.read()
+
 setup(
 	name='nti.futures',
-	version=VERSION,
+	version=_read('version.txt').strip(),
 	author='Jason Madden',
 	author_email='jason@nextthought.com',
 	description="NTI Futures Utils",
@@ -35,8 +35,7 @@ setup(
 		'Programming Language :: Python :: 2',
 		'Programming Language :: Python :: 2.7',
 		'Programming Language :: Python :: 3',
-		'Programming Language :: Python :: 3.3',
-		'Programming Language :: Python :: 3.4',
+		'Programming Language :: Python :: 3.5',
 		'Programming Language :: Python :: Implementation :: CPython',
 		'Programming Language :: Python :: Implementation :: PyPy'
 	],
