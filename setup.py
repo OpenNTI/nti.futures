@@ -11,7 +11,6 @@ TESTS_REQUIRE = [
     'nose-progressive',
     'nose-pudb',
     'pyhamcrest',
-    'nti.nose_traceback_info',
     'nti.testing'
 ]
 
@@ -35,10 +34,7 @@ setup(
         'Operating System :: OS Independent',
         'Programming Language :: Python :: 2',
         'Programming Language :: Python :: 2.7',
-        'Programming Language :: Python :: 3',
-        'Programming Language :: Python :: 3.5',
-        'Programming Language :: Python :: Implementation :: CPython',
-        'Programming Language :: Python :: Implementation :: PyPy'
+        'Programming Language :: Python :: Implementation :: CPython'
     ],
     packages=find_packages('src'),
     package_dir={'': 'src'},
