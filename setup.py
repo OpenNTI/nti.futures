@@ -4,20 +4,18 @@ from setuptools import setup, find_packages
 entry_points = {
 }
 
+
 TESTS_REQUIRE = [
-    'nose',
-    'nose2[coverage_plugin]',
-    'nose-timer',
-    'nose-progressive',
-    'nose-pudb',
+    'nti.testing',
     'pyhamcrest',
-    'nti.testing'
+    'zope.testing',
 ]
 
 
 def _read(fname):
     with codecs.open(fname, encoding='utf-8') as f:
         return f.read()
+
 
 setup(
     name='nti.futures',
@@ -42,11 +40,13 @@ setup(
     tests_require=TESTS_REQUIRE,
     install_requires=[
         'setuptools',
-        'futures',
         'zope.exceptions'
     ],
     extras_require={
         'test': TESTS_REQUIRE,
+        ':python_version == "2.7"': [
+            'futures',
+        ],
     },
     dependency_links=[],
     entry_points=entry_points
