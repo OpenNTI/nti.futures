@@ -23,7 +23,7 @@ setup(
     author='Jason Madden',
     author_email='jason@nextthought.com',
     description="NTI Futures Utils",
-    long_description=codecs.open('README.rst', encoding='utf-8').read(),
+    long_description=(_read('README.rst') + '\n\n' + _read("CHANGES.rst")),
     license='Proprietary',
     keywords='Futures',
     classifiers=[
@@ -32,8 +32,11 @@ setup(
         'Operating System :: OS Independent',
         'Programming Language :: Python :: 2',
         'Programming Language :: Python :: 2.7',
-        'Programming Language :: Python :: Implementation :: CPython'
+        'Programming Language :: Python :: 3',
+        'Programming Language :: Python :: 3.6',
+        'Programming Language :: Python :: Implementation :: CPython',
     ],
+    zip_safe=True,
     packages=find_packages('src'),
     package_dir={'': 'src'},
     namespace_packages=['nti'],
@@ -49,5 +52,6 @@ setup(
         ],
     },
     dependency_links=[],
-    entry_points=entry_points
+    entry_points=entry_points,
+    test_suite="nti.futures.tests",
 )
