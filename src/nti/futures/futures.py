@@ -6,10 +6,9 @@ Utility classes and objects for working with :mod:`concurrent.futures`.
 .. $Id$
 """
 
-from __future__ import print_function, absolute_import, division
-__docformat__ = "restructuredtext en"
-
-logger = __import__('logging').getLogger(__name__)
+from __future__ import division
+from __future__ import print_function
+from __future__ import absolute_import
 
 import functools
 import multiprocessing
@@ -21,6 +20,8 @@ import weakref
 _executors_by_base = weakref.WeakKeyDictionary()
 
 import concurrent.futures
+
+logger = __import__('logging').getLogger(__name__)
 
 
 def ConcurrentExecutor(max_workers=None):
@@ -58,7 +59,7 @@ def ConcurrentExecutor(max_workers=None):
     # 155s vs 275s. While unit tests are not benchmarks, for now we're defaulting PyPy to
     # the threaded executor since nti.contentrendering is one of the primary
     # consumers of this API. (this may change when threads become greenlets?)
-    if _is_pypy:
+    if _is_pypy:  # pragma: no cover
         if max_workers is None:
             max_workers = multiprocessing.cpu_count()
         base = concurrent.futures.ThreadPoolExecutor
@@ -90,7 +91,10 @@ def ConcurrentExecutor(max_workers=None):
                 cq = getattr(self, '_call_queue', self)
                 super(_Executor, self).shutdown(*args, **kwargs)
                 if rq is not self:
-                    rq.close()
+                    try:
+                        rq.close()
+                    except AttributeError:  # pragma: no cover
+                        pass
                     cq.close()
         executor = _executors_by_base[base] = _Executor
     return executor(max_workers)
