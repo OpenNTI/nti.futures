@@ -13,6 +13,7 @@ from hamcrest import assert_that
 
 import unittest
 
+from nti.futures.futures import _nothrow
 from nti.futures.futures import ConcurrentExecutor
 
 from nti.futures.tests import SharedConfiguringTestLayer
@@ -30,3 +31,23 @@ class TestFutures(unittest.TestCase):
         with ConcurrentExecutor() as executor:
             data = executor.map(_one, ['a', 'b'])
             assert_that(list(data), is_([1, 1]))
+
+    def test_nothrow(self):
+        def _raise():
+            raise Exception()
+        fn = _nothrow(_raise, False)
+        assert_that(fn(), is_(Exception))
+
+        fn = _nothrow(_raise, True)
+        with self.assertRaises(Exception):
+            fn()
+
+        class V(ValueError):
+            def __reduce_ex__(self, protocol=0):
+                raise TypeError()
+            __reduce__ = __reduce_ex__
+        
+        def _v_ex():
+            raise V("value")
+        fn = _nothrow(_v_ex, False)
+        assert_that(fn(), is_(Exception))
