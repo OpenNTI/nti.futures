@@ -7,8 +7,7 @@ entry_points = {
 
 TESTS_REQUIRE = [
     'nti.testing',
-    'pyhamcrest',
-    'zope.testing',
+    'zope.testrunner',
 ]
 
 
@@ -22,9 +21,9 @@ setup(
     version=_read('version.txt').strip(),
     author='Jason Madden',
     author_email='jason@nextthought.com',
-    description="NTI Futures Utils",
+    description="NTI Futures",
     long_description=(_read('README.rst') + '\n\n' + _read("CHANGES.rst")),
-    license='Proprietary',
+    license='Apache',
     keywords='Futures',
     classifiers=[
         'Intended Audience :: Developers',
@@ -35,23 +34,30 @@ setup(
         'Programming Language :: Python :: 3',
         'Programming Language :: Python :: 3.6',
         'Programming Language :: Python :: Implementation :: CPython',
+        'Programming Language :: Python :: Implementation :: PyPy',
     ],
+    url="https://github.com/NextThought/nti.futures",
     zip_safe=True,
     packages=find_packages('src'),
     package_dir={'': 'src'},
+    include_package_data=True,
     namespace_packages=['nti'],
     tests_require=TESTS_REQUIRE,
     install_requires=[
         'setuptools',
-        'zope.exceptions'
+        'zope.component',
+        'zope.exceptions',
     ],
     extras_require={
         'test': TESTS_REQUIRE,
         ':python_version == "2.7"': [
             'futures',
         ],
+        'docs': [
+            'Sphinx',
+            'repoze.sphinx.autointerface',
+            'sphinx_rtd_theme',
+        ],
     },
-    dependency_links=[],
     entry_points=entry_points,
-    test_suite="nti.futures.tests",
 )
