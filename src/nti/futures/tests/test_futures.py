@@ -19,7 +19,7 @@ from nti.futures.futures import ConcurrentExecutor
 from nti.futures.tests import SharedConfiguringTestLayer
 
 
-def _one(unused):
+def _one(unused_arg):
     return 1
 
 
