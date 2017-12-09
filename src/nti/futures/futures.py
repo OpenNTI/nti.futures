@@ -79,7 +79,7 @@ def ConcurrentExecutor(max_workers=None):
                 _fn = functools.update_wrapper(_fn, fn)
                 return super(_Executor, self).submit(_fn, *args, **kwargs)
 
-            def shutdown(self, *args, **kwargs):
+            def shutdown(self, *args, **kwargs):  # pylint: disable=arguments-differ
                 # The ProcessPoolExecutor spawns threads to communicate
                 # with child processes, and relies on GC to clean them up.
                 # While under CPython this is immediate, PyPy makes it non-deterministic.
@@ -121,7 +121,7 @@ class _nothrow(object):
     def __call__(self, *args, **kwargs):
         try:
             return self.__fn(*args, **kwargs)
-        except Exception as e:
+        except Exception as e:  # pylint: disable=broad-except
             # logging may not be reliable in this pool
             from zope.exceptions import print_exception
             import sys
@@ -134,7 +134,7 @@ class _nothrow(object):
             # Exception subclass---see the Python bug about this)
             try:
                 pickle.loads(pickle.dumps(e))
-            except Exception:
+            except Exception:  # pylint: disable=broad-except
                 return Exception(str(e))
             else:
                 return e
